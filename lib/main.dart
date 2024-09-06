@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       theme: ShadThemeData(
-          colorScheme: const ShadStoneColorScheme.light(),
+          colorScheme: const ShadSlateColorScheme.light(),
           brightness: Brightness.light,
           textTheme: ShadTextTheme.fromGoogleFont(GoogleFonts.poppins)),
       routerConfig: _router,

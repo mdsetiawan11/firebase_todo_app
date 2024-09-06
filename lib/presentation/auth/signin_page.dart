@@ -12,7 +12,7 @@ class SigninPage extends StatefulWidget {
 
 class _SigninPageState extends State<SigninPage> {
   bool loading = false;
-  bool obscure = false;
+  bool obscure = true;
   final formKey = GlobalKey<ShadFormState>();
   final _firebaseAuth = FirebaseAuth.instance;
   @override
@@ -62,7 +62,6 @@ class _SigninPageState extends State<SigninPage> {
                 ShadInputFormField(
                   id: 'email',
                   placeholder: const Text('Email'),
-                  obscureText: obscure,
                   prefix: const Padding(
                     padding: EdgeInsets.all(4.0),
                     child: ShadImage.square(size: 16, LucideIcons.mail),

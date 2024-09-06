@@ -17,7 +17,10 @@ class TodoService {
 
   //read
   Stream<QuerySnapshot> getTodosStream(String uid) {
-    final todosStream = todos.where('uid', isEqualTo: uid).snapshots();
+    final todosStream = todos
+        .where('uid', isEqualTo: uid)
+        .orderBy('createdAt', descending: true)
+        .snapshots();
     return todosStream;
   }
 

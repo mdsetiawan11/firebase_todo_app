@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_todo_app/presentation/home/profile_page.dart';
 import 'package:firebase_todo_app/presentation/home/todo_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -36,32 +35,44 @@ class _HomePageState extends State<HomePage> {
                 showShadDialog(
                   context: context,
                   builder: (context) => ShadDialog.alert(
-                    title: const Text('SignOut?'),
+                    constraints: const BoxConstraints(maxWidth: 300),
+                    title: const Text('SignOut'),
+                    description: const Text('Are you sure?'),
+                    actionsAxis: Axis.horizontal,
+                    actionsMainAxisAlignment: MainAxisAlignment.center,
                     actions: [
-                      ShadButton.outline(
-                        child: const Text('Cancel'),
-                        onPressed: () => Navigator.of(context).pop(false),
+                      SizedBox(
+                        width: 100,
+                        height: 50,
+                        child: ShadButton.outline(
+                          child: const Text('Cancel'),
+                          onPressed: () => Navigator.of(context).pop(false),
+                        ),
                       ),
-                      ShadButton(
-                        child: const Text('Yes'),
-                        onPressed: () async {
-                          try {
-                            await FirebaseAuth.instance.signOut();
-                            Future.delayed(const Duration(seconds: 1), () {
-                              context.pushReplacement('/');
-                            });
-                          } on Exception catch (e) {
-                            if (mounted) {
-                              ShadToaster.of(context).show(
-                                ShadToast.destructive(
-                                  title: const Text('Error'),
-                                  description: Text(e.toString()),
-                                ),
-                              );
+                      SizedBox(
+                        width: 100,
+                        height: 50,
+                        child: ShadButton(
+                          child: const Text('Yes'),
+                          onPressed: () async {
+                            try {
+                              await FirebaseAuth.instance.signOut();
+                              Future.delayed(const Duration(seconds: 1), () {
+                                context.pushReplacement('/');
+                              });
+                            } on Exception catch (e) {
+                              if (mounted) {
+                                ShadToaster.of(context).show(
+                                  ShadToast.destructive(
+                                    title: const Text('Error'),
+                                    description: Text(e.toString()),
+                                  ),
+                                );
+                              }
                             }
-                          }
-                          Navigator.of(context).pop(true);
-                        },
+                            Navigator.of(context).pop(true);
+                          },
+                        ),
                       ),
                     ],
                   ),

@@ -12,6 +12,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String name = '';
+  String email = '';
   UserService userService = UserService();
   final FirebaseAuth auth = FirebaseAuth.instance;
   bool isLoading = true;
@@ -31,6 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
         var userProfile = await userService.getUserProfile(uid);
         setState(() {
           name = userProfile['name'];
+          email = user.email.toString();
           isLoading = false;
         });
       }
@@ -59,14 +61,24 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(
           height: 30,
         ),
-        const ShadAvatar(
-          size: Size.square(60),
-          'https://app.requestly.io/delay/2000/avatars.githubusercontent.com/u/124599?v=4',
-          placeholder: Icon(LucideIcons.circleUser),
-        ),
-        Text(
-          'Hello, $name',
-          style: ShadTheme.of(context).textTheme.p,
+        ShadCard(
+          child: Column(
+            children: [
+              const ShadAvatar(
+                size: Size.square(60),
+                'https://app.requestly.io/delay/2000/avatars.githubusercontent.com/u/124599?v=4',
+                placeholder: Icon(LucideIcons.circleUser),
+              ),
+              Text(
+                name,
+                style: ShadTheme.of(context).textTheme.p,
+              ),
+              Text(
+                email,
+                style: ShadTheme.of(context).textTheme.muted,
+              ),
+            ],
+          ),
         ),
       ],
     );
