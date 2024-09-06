@@ -135,11 +135,7 @@ class _SigninPageState extends State<SigninPage> {
                               );
 
                               formKey.currentState!.reset();
-
-                              Future.delayed(const Duration(seconds: 3), () {
-                                setState(() => loading = false);
-                                context.pushReplacement('/home');
-                              });
+                              context.pushReplacement('/home');
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
                                 message = 'Invalid login credentials.';
@@ -153,6 +149,7 @@ class _SigninPageState extends State<SigninPage> {
                                 ),
                               );
                             }
+                            setState(() => loading = false);
                           } else {}
                         },
                         child: Text(loading ? 'Please Wait' : 'SignIn'),

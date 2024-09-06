@@ -215,7 +215,7 @@ class _SignupPageState extends State<SignupPage> {
                       style: ShadTheme.of(context).textTheme.p,
                     ),
                     GestureDetector(
-                      onTap: () => context.go('/'),
+                      onTap: () => context.go('/signin'),
                       child: Text(
                         'SignIn',
                         style: ShadTheme.of(context)

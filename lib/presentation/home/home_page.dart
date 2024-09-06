@@ -1,9 +1,6 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_todo_app/presentation/home/profile_page.dart';
+import 'package:firebase_todo_app/presentation/home/todo_page.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,27 +13,42 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: IconButton(
-          onPressed: () async {
-            try {
-              await FirebaseAuth.instance.signOut();
-              Future.delayed(const Duration(seconds: 3), () {
-                context.pushReplacement('/');
-              });
-            } on Exception catch (e) {
-              if (mounted) {
-                ShadToaster.of(context).show(
-                  ShadToast.destructive(
-                    title: const Text('Error'),
-                    description: Text(e.toString()),
-                  ),
-                );
-              }
-            }
-          },
-          icon: const Icon(CupertinoIcons.square_arrow_right),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: Text(
+            'Todo',
+            style: ShadTheme.of(context)
+                .textTheme
+                .h3
+                .copyWith(color: Colors.white),
+          ),
+          backgroundColor: ShadTheme.of(context).colorScheme.primary,
+          bottom: const TabBar(
+            tabs: [
+              Tab(
+                icon: Icon(
+                  LucideIcons.database,
+                  color: Colors.white,
+                ),
+              ),
+              Tab(
+                icon: Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ),
+              )
+            ],
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            TodoPage(),
+            ProfilePage(),
+          ],
         ),
       ),
     );

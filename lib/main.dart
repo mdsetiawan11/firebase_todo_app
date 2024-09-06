@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_todo_app/presentation/auth/auth_gate.dart';
 import 'package:firebase_todo_app/presentation/home/home_page.dart';
 import 'package:firebase_todo_app/utils/firebase_options.dart';
 import 'package:firebase_todo_app/presentation/auth/signup_page.dart';
@@ -22,9 +23,15 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const SigninPage();
+        return const AuthGate();
       },
       routes: <RouteBase>[
+        GoRoute(
+          path: 'signin',
+          builder: (BuildContext context, GoRouterState state) {
+            return const SigninPage();
+          },
+        ),
         GoRoute(
           path: 'signup',
           builder: (BuildContext context, GoRouterState state) {
