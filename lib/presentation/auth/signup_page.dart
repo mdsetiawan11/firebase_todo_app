@@ -11,6 +11,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  bool loading = false;
   bool obscure = false;
   final formKey = GlobalKey<ShadFormState>();
   final _firebaseAuth = FirebaseAuth.instance;
@@ -136,20 +137,18 @@ class _SignupPageState extends State<SignupPage> {
                         onPressed: () async {
                           String message = '';
                           if (formKey.currentState!.saveAndValidate()) {
+                            setState(() => loading = true);
                             try {
                               await _firebaseAuth
                                   .createUserWithEmailAndPassword(
-                                // instantiated earlier on: final _firebaseAuth = FirebaseAuth.instance;
                                 email:
                                     formKey.currentState!.value['email'].trim(),
                                 password: formKey
                                     .currentState!.value['password']
                                     .trim(),
                               );
-                              formKey.currentState!.reset();
-                              Future.delayed(const Duration(seconds: 3), () {
-                                context.pushReplacement('/home');
-                              });
+                              formKey.currentState!.value.clear();
+                              context.pushReplacement('/home');
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'weak-password') {
                                 message = 'The password provided is too weak.';
@@ -171,8 +170,7 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                               );
                             }
-                          } else {
-                            debugPrint('validation failed');
+                            setState(() => loading = false);
                           }
                         },
                       ),
@@ -182,31 +180,6 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(
                   height: 15,
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Text(
-                //       'Or',
-                //       style: ShadTheme.of(context).textTheme.p,
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(
-                //   height: 15,
-                // ),
-                // const Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Expanded(
-                //       child: ShadButton.secondary(
-                //         child: Text('SignUp with Google'),
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(
-                //   height: 15,
-                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

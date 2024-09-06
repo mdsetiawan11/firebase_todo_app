@@ -133,8 +133,7 @@ class _SigninPageState extends State<SigninPage> {
                                 password:
                                     formKey.currentState!.value['password'],
                               );
-
-                              formKey.currentState!.reset();
+                              formKey.currentState!.value.clear();
                               context.pushReplacement('/home');
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
@@ -150,38 +149,13 @@ class _SigninPageState extends State<SigninPage> {
                               );
                             }
                             setState(() => loading = false);
-                          } else {}
+                          }
                         },
                         child: Text(loading ? 'Please Wait' : 'SignIn'),
                       ),
                     ),
                   ],
                 ),
-                // const SizedBox(
-                //   height: 15,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Text(
-                //       'Or',
-                //       style: ShadTheme.of(context).textTheme.p,
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(
-                //   height: 15,
-                // ),
-                // const Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Expanded(
-                //       child: ShadButton.secondary(
-                //         child: Text('SignIn with Google'),
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 const SizedBox(
                   height: 15,
                 ),
