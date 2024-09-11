@@ -30,14 +30,17 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 const Text('Dark Mode'),
-                Switch(
+                const SizedBox(
+                  height: 5,
+                ),
+                ShadSwitch(
                   value: isDarkMode,
                   onChanged: (value) {
                     themeProvider.toggleTheme(value);
                   },
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 20,
                 ),
                 const Text('Colors'),
                 SizedBox(
@@ -90,7 +93,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-              icon: const Icon(LucideIcons.menu),
+              icon: const Icon(LucideIcons.settings2),
             );
           }),
           actions: [
