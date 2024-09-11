@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(vertical: 30.0),
             child: Column(
               children: [
-                const Text('Dark Mode'),
+                const Text('Dark'),
                 const SizedBox(
                   height: 5,
                 ),
@@ -40,13 +40,17 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                const Text('Colors'),
+                const Text('Color'),
+                const SizedBox(
+                  height: 10,
+                ),
                 SizedBox(
                   height: 600,
                   child: ListView.separated(
                       shrinkWrap: true,
+                      padding: EdgeInsets.zero,
                       itemCount: colorScheme.length,
                       separatorBuilder: (context, index) {
                         return const SizedBox(
