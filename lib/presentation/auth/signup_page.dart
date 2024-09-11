@@ -12,7 +12,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   bool loading = false;
-  bool obscure = false;
+  bool obscure = true;
   final formKey = GlobalKey<ShadFormState>();
   final _firebaseAuth = FirebaseAuth.instance;
   @override
